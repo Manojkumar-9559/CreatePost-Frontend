@@ -2,11 +2,13 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ApiUrl } from './ApiUrl';
+import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Import icons for visibility toggle
 
 const LoginPage = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false); // For toggle visibility
   const [errors, setErrors] = useState({ email: '', password: '' });
 
   const validateFields = () => {
@@ -71,15 +73,25 @@ const LoginPage = () => {
 
         {/* Password Field */}
         <label className='mt-4'>Password</label>
-        <input
-          type='password'
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder='Enter your password'
-          className={`w-[80%] p-2 rounded-md border ${
-            errors.password ? 'border-red-500' : 'border-gray-400'
-          }`}
-        />
+        <div className="relative w-[80%]">
+          <input
+            type={showPassword ? 'text' : 'password'}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder='Enter your password'
+            className={`w-full p-2 rounded-md border ${
+              errors.password ? 'border-red-500' : 'border-gray-400'
+            }`}
+          />
+          {/* Show/Hide Password Icon */}
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-600"
+          >
+            {showPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
+          </button>
+        </div>
         {errors.password && <p className='text-red-500 text-sm mt-1'>{errors.password}</p>}
 
         {/* Submit Button */}
