@@ -1,1 +1,1 @@
-export  const ApiUrl ="http://localhost:4000/user";
+export  const ApiUrl ="https://createpost-backend.onrender.com/user";
